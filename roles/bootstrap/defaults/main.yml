@@ -1,0 +1,21 @@
+---
+
+server_hostname: your_hostname
+server_domain_name: yourdomain.com
+server_ip_address: 1.1.1.1
+
+timezone: Europe/Paris
+ubuntu_release: trusty
+logwatch_email: address_to_send_emails@yourdomain.com
+
+# crypted password, generated on a Linux box using: openssl passwd -salt <salt> -1 <plaintext>
+deploy_password_hash: '$1$<salt>$<hashed_password_generated_as_described_above>'
+deploy_shell: /bin/bash
+
+ssh_users:
+  - name: user1
+    user: deploy
+    key: "ssh-rsa AAAAB2...== comma, separated, comment, if, needed"
+  - name: user2
+    user: deploy
+    key: "ssh-rsa AAAAB2...== comma, separated, comment, if, needed"

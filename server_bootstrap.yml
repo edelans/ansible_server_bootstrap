@@ -1,0 +1,9 @@
+---
+
+- name: Server Bootstrap
+  hosts: server
+  user: root
+  sudo: True
+  gather_facts: True
+  roles:
+    - bootstrap
