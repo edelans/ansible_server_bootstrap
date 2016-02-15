@@ -113,6 +113,7 @@
     - 443/tcp
     - 22/tcp
     - ssh
+    - snmp # 161/udp and tcp
 
 - name: Configure ufw logging
   ufw: logging=on
