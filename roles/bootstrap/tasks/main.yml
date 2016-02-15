@@ -114,6 +114,10 @@
     - 22/tcp
     - ssh
 
+- name: Configure ufw logging
+  ufw: logging=on
+  notify: restart ufw
+
 - name: Check status of ufw
   command: ufw status
   register: ufw_status
