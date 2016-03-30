@@ -63,4 +63,4 @@ Don't forget to add the newly created key or you will experience a `Permission d
     ssh-add ~/.ssh/id_rsa
 
 #Contributing
-Issues and PRs wellcome :wink: !
+Issues and PRs welcome :wink: !
