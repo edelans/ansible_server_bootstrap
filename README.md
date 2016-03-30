@@ -56,11 +56,9 @@ On Linux run the command:
 
 Follow the onscreen instructions to generate your SSH key pairs on your desktop computer. By default, the ssh-keygen utility will save your private key to `~/.ssh/id_rsa` and the public key to `~/.ssh/id_rsa.pub`. If you don't want to use a passphrase simply press 'Enter' when prompted.
 
-Copy the the public key file (default name : `~/.ssh/id_rsa.pub`) and paste it in `/roles/bootstrap/files/public_keys/`. Even if you saved your key to a different name than id-rsa, you do not need to change this filename.
+Copy the the public key file (default name : `~/.ssh/id_rsa.pub`) and paste it in your `group_vars/<hotname>.yml` (see `ssh_users` part).
 
-Don't forget to add the newly created key or you will experience a `Permission denied (publickey)` error later on. If you entered a passphrase in the previous step you will need to enter it to perform the operation:
-
-    ssh-add ~/.ssh/id_rsa
+Don't forget to `ssh-add` the newly created key (with default key name, the command will be `ssh-add ~/.ssh/id_rsa`). Failing to do so will end with a `Permission denied (publickey)` error later on. If you entered a passphrase in the previous step you will need to enter it.
 
 #Contributing
 Issues and PRs welcome :wink: !
