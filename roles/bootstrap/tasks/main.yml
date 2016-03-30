@@ -74,7 +74,7 @@
   notify: Restart sshd
 
 - name: Install fail2ban
-  action: apt pkg=fail2ban state=installed
+  apt: pkg==fail2ban state=installed
 
 # automatic upgrades
 - name: Install unattended-upgrades
@@ -98,12 +98,15 @@
 
 # setup logwatch
 - name: Install logwatch
-  action: apt pkg=logwatch state=installed
+  apt: pkg==logwatch state=installed
 
 - name: Make logwatch mail $logwatch_email daily
   action: lineinfile dest=/etc/cron.daily/00logwatch regexp="^/usr/sbin/logwatch" line="/usr/sbin/logwatch --output mail --mailto $logwatch_email --detail high" state=present create=yes
 
 # configure and enable firewall
+- name: Install uncomplicated firewall
+  apt: pkg=ufw state=installed
+  
 - name: Set firewall rules
   command: ufw allow {{ item }}
   register: ufw_result
