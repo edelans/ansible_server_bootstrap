@@ -5,6 +5,7 @@ server_domain_name: yourdomain.com
 server_ip_address: 1.1.1.1
 
 timezone: Europe/Paris
+# trusty for 14.04, xenial for 16.04
 ubuntu_release: trusty
 logwatch_email: address_to_send_emails@yourdomain.com
 
