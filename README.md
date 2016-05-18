@@ -1,4 +1,7 @@
-This repo is an ansible playbook intended to automate the initial configuration of a fresh ubuntu 14.04 box.
+This repo is an ansible playbook intended to automate the initial configuration of a fresh ubuntu box.
+Tested with :
++ 14.04
++ 16.04
 
 #What does it do ?
 This playbook is inspired and largely based on [Bryan Kennedy](http://plusbryan.com)'s excellent post [My First 5 Minutes On A Server; Or, Essential Security for Linux Servers](http://plusbryan.com/my-first-5-minutes-on-a-server-or-essential-security-for-linux-servers).
@@ -33,13 +36,13 @@ $ cp group_vars/server.yml.sample group_vars/server.yml
 ```
 
 ##Edit configuration files to your needs
-Edit configuration files (`hosts.ini` and `group_vars/server.yml`) with your own configuration.
+Edit configuration files (`hosts.ini` and `group_vars/server.yml`) with your own configuration. You can change the defaut hostname (```server```) to whatever you want.
 
 
 ##Execute the playbook
 
 ```
-ansible-playbook server_bootstrap.yml
+ansible-playbook server_bootstrap.yml --extra-vars="hosts=server"
 ```
 
 ##Reboot your server
@@ -54,9 +57,16 @@ On Linux run the command:
 
     ssh-keygen
 
-Follow the onscreen instructions to generate your SSH key pairs on your desktop computer. By default, the ssh-keygen utility will save your private key to `~/.ssh/id_rsa` and the public key to `~/.ssh/id_rsa.pub`. If you don't want to use a passphrase simply press 'Enter' when prompted.
+Follow the onscreen instructions to generate your SSH key pairs on your desktop computer. By default, the ssh-keygen utility will save your private key to `~/.ssh/id_rsa` and the public key to `~/.ssh/id_rsa.pub`. If you don't want to use a passphrase simply press 'Enter' when prompted. Of course, it is wiser to use a passphrase...
 
-Copy the the public key file (default name : `~/.ssh/id_rsa.pub`) and paste it in `/roles/bootstrap/files/public_keys/`. Even if you saved your key to a different name than id-rsa, you do not need to change this filename.
+Copy the the public key file (copy the string in the file with default name : `~/.ssh/id_rsa.pub`) to the group_vars file :
+
+```
+ssh_users:
+  - name: a name to identify this user/key
+    user: login on remote server for which the following key enables access
+    key: "ssh-rsa AAAAB.....== email@address.com"
+```
 
 Don't forget to add the newly created key or you will experience a `Permission denied (publickey)` error later on. If you entered a passphrase in the previous step you will need to enter it to perform the operation:
 
