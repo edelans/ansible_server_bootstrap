@@ -12,15 +12,15 @@
 
 # basic system packages installation
 - name: Update APT package cache
-  sudo: yes
+  become: yes
   apt: update_cache=yes
 
 - name: Run apt-get upgrade
-  sudo: yes
+  become: yes
   apt: upgrade=safe
 
 - name: apt - install basic system packages
-  sudo: yes
+  become: yes
   apt: pkg={{item}} state=latest update-cache=yes
   with_items:
     - curl
@@ -81,10 +81,10 @@
   action: apt pkg=unattended-upgrades state=present
 
 - name: Adjust APT update intervals
-  copy: src=etc/apt/apt.conf.d/10periodic dest=/etc/apt/apt.conf.d/10periodic group=root owner=root
+  template: src=etc/apt/apt.conf.d/10periodic dest=/etc/apt/apt.conf.d/10periodic group=root owner=root
 
 - name: Make sure unattended-upgrades only installs from $ubuntu_release-security
-  copy: src=etc/apt/apt.conf.d/50unattended-upgrades dest=/etc/apt/apt.conf.d/50unattended-upgrades group=root owner=root
+  template: src=etc/apt/apt.conf.d/50unattended-upgrades dest=/etc/apt/apt.conf.d/50unattended-upgrades group=root owner=root
 
 # enable server to send emails
 - name: Set up Postfix to relay mail
@@ -113,7 +113,6 @@
     - 443/tcp
     - 22/tcp
     - ssh
-    - snmp # 161/udp and tcp
 
 - name: Configure ufw logging
   ufw: logging=on
