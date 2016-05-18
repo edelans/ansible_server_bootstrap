@@ -12,9 +12,9 @@ To know exactly what it does, check the comments in the [main task file](roles/b
 
 ##Assumptions
 
-+ Your are targeting a fresh install of Ubuntu 14.04 server.
++ Your are targeting a fresh install of a compatible distro.
 + `root` login has not been disabled yet (the playbook is configured to login as `root` and to ask you for your password).
-+ You have installed the packages `sshpass` and `ansible` on your desktop system :
++ You have installed the packages `sshpass` and `ansible` on your local machine :
 ```
 sudo apt-get install software-properties-common
 sudo apt-add-repository ppa:ansible/ansible
