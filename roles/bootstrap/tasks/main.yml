@@ -10,6 +10,9 @@
   template: src=etc/hosts.j2 dest=/etc/hosts
   when: hostname.changed
 
+- name: install aptitude package needed for following packages install via ansible apt module
+  command: apt-get install -y aptitude
+
 # basic system packages installation
 - name: Update APT package cache
   become: yes
@@ -106,7 +109,7 @@
 # configure and enable firewall
 - name: Install uncomplicated firewall
   apt: pkg=ufw state=installed
-  
+
 - name: Set firewall rules
   command: ufw allow {{ item }}
   register: ufw_result
