@@ -53,7 +53,7 @@
 
 - name: Add ssh user keys
   authorized_key: user={{ item.user }} key="{{ item.key }}"
-  with_items: ssh_users
+  with_items: "{{ ssh_users }}"
 
   # - name: Remove sudo group rights
   #   action: lineinfile dest=/etc/sudoers regexp="^%sudo" state=absent
