@@ -1,7 +1,7 @@
 *.pub
 
 group_vars/*
-!group_vars/server.yml
+!group_vars/server.yml.sample
 
 hosts.ini
 *.retry
