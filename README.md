@@ -48,6 +48,8 @@ ansible-playbook server_bootstrap.yml --extra-vars="hosts=server"
 ##Reboot your server
 After successfully bootstrapping and securing your server, reboot server for eventual kernel updates.
 
+# ToDo
+implement https://www.thefanclub.co.za/how-to/how-secure-ubuntu-1604-lts-server-part-1-basics
 
 #Troubleshooting
 
