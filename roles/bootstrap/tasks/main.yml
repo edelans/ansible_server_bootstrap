@@ -31,6 +31,7 @@
     - tree
     - htop
     - mlocate
+    - fail2ban
 
 # time-related tasks
 - name: install system packages for time management
@@ -67,17 +68,6 @@
 - name: deploy user can sudo without password prompt
   action: lineinfile dest=/etc/sudoers regexp="deploy ALL" state=present line="deploy ALL=(ALL) NOPASSWD:ALL"
 
-# login configuration (sshd)
-- name: Disallow root SSH access
-  action: lineinfile dest=/etc/ssh/sshd_config regexp="^PermitRootLogin" line="PermitRootLogin no" state=present
-  notify: Restart sshd
-
-- name: Disallow password authentication
-  action: lineinfile dest=/etc/ssh/sshd_config regexp="^PasswordAuthentication" line="PasswordAuthentication no" state=present
-  notify: Restart sshd
-
-- name: Install fail2ban
-  apt: pkg==fail2ban state=installed
 
 # automatic upgrades
 - name: Install unattended-upgrades
@@ -101,7 +91,7 @@
 
 # setup logwatch
 - name: Install logwatch
-  apt: pkg==logwatch state=installed
+  apt: pkg=logwatch state=installed
 
 - name: Make logwatch mail $logwatch_email daily
   action: lineinfile dest=/etc/cron.daily/00logwatch regexp="^/usr/sbin/logwatch" line="/usr/sbin/logwatch --output mail --mailto $logwatch_email --detail high" state=present create=yes
@@ -137,3 +127,13 @@
 - name: Enable ufw
   command: ufw --force enable
   when: "ufw_status.stdout.startswith('Status: inactive') or 'ENABLED=yes' not in ufw_config.stdout"
+
+
+# login configuration (sshd). Must be kept as last item to rerun the playbook easily if an error occurs
+- name: Disallow root SSH access
+  action: lineinfile dest=/etc/ssh/sshd_config regexp="^PermitRootLogin" line="PermitRootLogin no" state=present
+  notify: Restart sshd
+
+- name: Disallow password authentication
+  action: lineinfile dest=/etc/ssh/sshd_config regexp="^PasswordAuthentication" line="PasswordAuthentication no" state=present
+  notify: Restart sshd
